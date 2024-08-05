@@ -1,5 +1,7 @@
 package com.cpt.payments.service.impl;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cpt.payments.pojo.Payment;
@@ -12,6 +14,11 @@ import com.cpt.payments.service.interfaces.PaymentStatusService;
 
 @Component
 public class PaymentServiceImpl implements PaymentStatusService {
+	@Autowired
+	PaymentStatusFactory statusFactory ;
+	
+	@Autowired
+	CreatedStatusHandler psh;
 
 	@Override
 	public String processStatus(Payment payment) {
@@ -20,10 +27,8 @@ public class PaymentServiceImpl implements PaymentStatusService {
 		//systrace
 		System.out.println("CreatedStatusHandler.processStatus() || payment "+payment);
 		
-		PaymentStatusFactory statusFactory = new PaymentStatusFactory();
 		PaymentStatusHandler statusHandler = statusFactory.getStatusHandler("CREATED");
 		
-		CreatedStatusHandler psh = new CreatedStatusHandler();
 		String processStatusResponse = psh.processStatus(payment);
 		
 		return "Returning from PaymentServiceImpl class || statusHandler : "+statusHandler +" ||" + processStatusResponse ;
