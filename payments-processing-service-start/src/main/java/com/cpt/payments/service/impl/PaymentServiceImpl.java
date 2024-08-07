@@ -4,7 +4,8 @@ package com.cpt.payments.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cpt.payments.pojo.Payment;
+import com.cpt.payments.constant.TransactionStatusEnum;
+import com.cpt.payments.pojo.Transaction;
 import com.cpt.payments.service.factory.PaymentStatusFactory;
 import com.cpt.payments.service.impl.handler.CreatedStatusHandler;
 import com.cpt.payments.service.interfaces.PaymentStatusHandler;
@@ -21,19 +22,17 @@ public class PaymentServiceImpl implements PaymentStatusService {
 	CreatedStatusHandler psh;
 
 	@Override
-	public String processStatus(Payment payment) {
+	public String processStatus(Transaction transaction) {
 		// TODO Auto-generated method stub
 		
 		//systrace
-		System.out.println("CreatedStatusHandler.processStatus() || payment "+payment);
+		System.out.println("CreatedStatusHandler.processStatus() || payment "+transaction);
 		
-		PaymentStatusHandler statusHandler = statusFactory.getStatusHandler("CREATED");
+		TransactionStatusEnum statusEnum = TransactionStatusEnum.getById(transaction.getTxnStatusId());
 		
-		String processStatusResponse = psh.processStatus(payment);
+		PaymentStatusHandler statusHandler = statusFactory.getStatusHandler(statusEnum);
+		String processStatusResponse = psh.processStatus(transaction);
 		
-		return "Returning from PaymentServiceImpl class || statusHandler : "+statusHandler +" ||" + processStatusResponse ;
+		return "Returning from PaymentServiceImpl class \nstatusHandler : "+statusHandler +" ||" + processStatusResponse +"\ntransaction.getTxnStatusId():"+transaction.getTxnStatusId()+"\nstatusEnum : "+statusEnum;
 	}
-
-	
-
 }

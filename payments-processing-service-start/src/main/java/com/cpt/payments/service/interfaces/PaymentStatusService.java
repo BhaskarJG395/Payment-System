@@ -1,7 +1,7 @@
 package com.cpt.payments.service.interfaces;
 
-import com.cpt.payments.pojo.Payment;
+import com.cpt.payments.pojo.Transaction;
 
 public interface PaymentStatusService {
-	String processStatus(Payment payment);
+	String processStatus(Transaction transaction);
 }
