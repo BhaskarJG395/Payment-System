@@ -1,14 +1,14 @@
-package com.cpt.payments.pojo;
+package com.cpt.payments.dto;
 
 import lombok.Data;
 
 @Data
-public class Payment {
-	//email, name, amount ,currency, paymentMethod, paymentType, providerId (stripe/paypal/trustly)
+public class TransactionDTO {
+	
 	private int id;
 	private int userId;
 
-	private String paymentMehotd;
+	private String paymentMethod;
 	private String provider;
 	private String paymentType;
 	private String txnStatus;
@@ -21,5 +21,5 @@ public class Payment {
 	private String txnReference;
 	private String providerReference;
 	private String providerCode;
-	
+
 }

@@ -28,6 +28,14 @@ public enum TransactionStatusEnum {
         throw new IllegalArgumentException("No enum constant with id " + id);
     }
 
+    public static TransactionStatusEnum getByName(String name) {
+        for (TransactionStatusEnum method : TransactionStatusEnum.values()) {
+            if (method.getName().equalsIgnoreCase(name)) {
+                return method;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant with name " + name);
+    }
     @Override
     public String toString() {
         return name;
