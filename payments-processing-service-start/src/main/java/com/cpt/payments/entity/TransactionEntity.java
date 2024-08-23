@@ -1,10 +1,8 @@
 package com.cpt.payments.entity;
 
 import lombok.Data;
-import lombok.Setter;
 
 @Data
-@Setter
 public class TransactionEntity {
 	
 	private int id;

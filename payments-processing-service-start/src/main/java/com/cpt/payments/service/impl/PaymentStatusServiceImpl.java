@@ -37,6 +37,11 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
 		PaymentStatusHandler statusHandler = statusFactory.getStatusHandler(statusEnum);
 		String processStatusResponse = psh.processStatus(transactionDTO);
 
-		return "Returning from PaymentServiceImpl class \nstatusHandler : " + statusHandler + " ||" + processStatusResponse + "\ntransaction.getTxnStatusId():" + transactionDTO.getTxnStatus() + "\nstatusEnum : " + statusEnum;
+		return "Returning from PaymentServiceImpl class \n"
+				+"2.statusHandler : " + statusHandler + "\n"
+				+ "3." + processStatusResponse+"\n"
+				+ "4."+"transaction.getTxnStatusId():" + transactionDTO.getTxnStatus()+"\n" 
+				+ "5."+"statusEnum : " + statusEnum+"\n"
+				+ "6."+transactionEntity;
 	}
 }
