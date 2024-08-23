@@ -25,7 +25,7 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
 	private StringToIntConverter stringToIntConverter;	
 	
 	@Override
-	public String processStatus(TransactionDTO transactionDTO) {
+	public TransactionDTO processStatus(TransactionDTO transactionDTO) {
 
 		TransactionEntity transactionEntity = stringToIntConverter.convert(transactionDTO);
 
@@ -35,13 +35,14 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
 		TransactionStatusEnum statusEnum = TransactionStatusEnum.getByName(transactionDTO.getTxnStatus());
 
 		PaymentStatusHandler statusHandler = statusFactory.getStatusHandler(statusEnum);
-		String processStatusResponse = psh.processStatus(transactionDTO);
+		TransactionDTO processStatusResponse = psh.processStatus(transactionDTO);
 
-		return "Returning from PaymentServiceImpl class \n"
+		System.out.println("Returning from PaymentServiceImpl class \n"
 				+"2.statusHandler : " + statusHandler + "\n"
 				+ "3." + processStatusResponse+"\n"
 				+ "4."+"transaction.getTxnStatusId():" + transactionDTO.getTxnStatus()+"\n" 
 				+ "5."+"statusEnum : " + statusEnum+"\n"
-				+ "6."+transactionEntity;
+				+ "6."+transactionEntity);
+		return processStatusResponse;
 	}
 }

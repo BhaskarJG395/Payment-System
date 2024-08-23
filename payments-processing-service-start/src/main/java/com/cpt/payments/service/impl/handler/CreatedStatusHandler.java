@@ -14,12 +14,13 @@ public class CreatedStatusHandler extends PaymentStatusHandler {
 	private TransactionDao txnDao;
 	
 	@Override
-	public String processStatus(TransactionDTO transactionDTO) {
+	public TransactionDTO processStatus(TransactionDTO transactionDTO) {
 		// TODO Auto-generated method stub
 		
-		String txnString = txnDao.createTransaction(transactionDTO);
-		return "returning from CreatedStatusHandler \n"
-				+"3_1. txnDao.createTransaction(transactionDTO) : "+txnString;
+		TransactionDTO txnString = txnDao.createTransaction(transactionDTO);
+		System.out.println( "returning from CreatedStatusHandler \n"
+				+"3_1. txnDao.createTransaction(transactionDTO) : "+txnString);
+		return txnString;
 	}
 
 }

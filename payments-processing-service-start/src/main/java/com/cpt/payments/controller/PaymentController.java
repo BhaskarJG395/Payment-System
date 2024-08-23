@@ -2,16 +2,17 @@ package com.cpt.payments.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpt.payments.constant.Endpoints;
-
 import com.cpt.payments.dto.TransactionDTO;
-import com.cpt.payments.entity.TransactionEntity;
+import com.cpt.payments.pojo.TransactionResponse;
 import com.cpt.payments.service.interfaces.PaymentStatusService;
 
 @RestController
@@ -26,20 +27,25 @@ public class PaymentController {
 	private PaymentStatusService service;
 	
 	@PostMapping(value= {Endpoints.EMPTY_STRING,Endpoints.SLASH},consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String createPayment(@RequestBody TransactionDTO transaction) {
-		
+	public ResponseEntity<?> createPayment(@RequestBody TransactionDTO transaction) {
 		System.out.println("****starting point of payment processing****");
 		
-		String valFormService = service.processStatus(transaction);
+		TransactionDTO valFormService = service.processStatus(transaction);
 	
 		//converting transaction to transactionDTO
 		TransactionDTO txnDTO = mapper.map(transaction, TransactionDTO.class);
 		
 		System.out.print(txnDTO);
-		System.out.println("transaction :"+transaction+" valFormService : "+ valFormService);
+		System.out.println("transaction :"+transaction
+				+" valFormService : "+ valFormService
+				+"txnDTO"+txnDTO);
 		
-		return "1."+valFormService+"\n"
-				+"7." +txnDTO
-				;
+		TransactionResponse txnResponse= new TransactionResponse();
+		txnResponse.setId(txnDTO.getId());
+		txnResponse.setTxnStatus(txnDTO.getTxnStatus());
+		
+		ResponseEntity<?> response = new ResponseEntity(txnResponse,HttpStatus.CREATED);
+		
+		return response;
 	}
 }
