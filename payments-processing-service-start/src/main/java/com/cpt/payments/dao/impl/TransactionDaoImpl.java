@@ -30,7 +30,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	}
 	
 
-	public String createTransaction(TransactionDTO txnDTO) {
+	public TransactionDTO createTransaction(TransactionDTO txnDTO) {
 		System.out.println(namedParameterJdbcTemplate);
 		//TransactionDTO txnEntity = mapper.map(txnDTO, TransactionDTO.class);
 		TransactionEntity txnEntity = stringToIntConverter.convert(txnDTO);
@@ -45,10 +45,11 @@ public class TransactionDaoImpl implements TransactionDao {
 		int transactionId = (keyHolder.getKey() != null) ? keyHolder.getKey().intValue() : -1;
 		txnDTO.setId(transactionId);
 		
-		return "\n from TransactionDaoImpl class \n"
+		System.out.println("\n from TransactionDaoImpl class \n"
 				+"3_2."+"txnEntity: "+txnEntity+"\n"
 				+"3_3."+ "insertedRowCount: "+insertedRowCount+"\n"
 				+"3_4."+"transactionId: "+transactionId
-				; 
+				); 
+		return txnDTO;
 	}
 }
