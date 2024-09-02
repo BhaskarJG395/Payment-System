@@ -3,25 +3,40 @@ package com.cpt.payments.config;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
-//import com.cpt.payments.utils.StringToIntConverter;
 
 @Configuration
 public class AppConfig {
 	
+	@Bean
+	RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+
 	@Bean
 	ModelMapper getModelMapper() {
 	
 		ModelMapper modelMapper = new ModelMapper();
 		return new ModelMapper();
 	}
-//	@Bean
-//	public StringToIntConverter stringToIntConverter() {
-//	     return new StringToIntConverter();
-//	}
+
 }
 
 
+
+
+
+
+
+
+
+
+
+//@Bean
+//public StringToIntConverter stringToIntConverter() {
+//     return new StringToIntConverter();
+//}
 
 
 //		Converter<String, Integer> paymentMethodEnumConverter= (Converter<String, Integer>)new PaymentMethodEnumConverter();
@@ -37,6 +52,4 @@ public class AppConfig {
 //			using((org.modelmapper.Converter<String, Integer>) paymentMethodEnumConverter).map(source.getPaymentMehotd(),destination.getPaymentMehotdId());
 //			using((org.modelmapper.Converter<String, Integer>) txnStatusEnumConverter).map(source.getTxnStatus(),destination.getTxnStatusId());
 //		}
-//	});		
-	
-
+//	});
